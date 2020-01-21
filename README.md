@@ -1,13 +1,18 @@
 # DATR
----
-Data mining with R [Test the App here!](https://kress.shinyapps.io/datr/)
+
+##This app will visualize Array Expression Datasets by using the [shiny framework](https://shiny.rstudio.com).
 
 ---
-This app will visualize Array Expression Datasets by using the [shiny framework](https://shiny.rstudio.com).
+
+###Data mining with R [Test the App here!](https://kress.shinyapps.io/datr/)
+
+---
+
 
 ## Installation
+
 #### There are two ways of useing the DATR app:
----
+
 ##### 1. Useing the online version
 Therefore you just need to open [https://kress.shinyapps.io/datr/](https://kress.shinyapps.io/datr/) in your browser.  
 The only problem here is that my computing time on the shinyapps.io server is limited to 25 hours per month, so it might happen that this page won't be reachable.
