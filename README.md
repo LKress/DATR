@@ -93,13 +93,35 @@ In the second selection box the clustering method can be chosen. This will also 
 Further information about the clustering method can be found [here](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust).
 
 
-
 ## The More Info Tab
 
 <img src="Images/moreinfoTab.png" alt="drawing" width="100%"/>
 The More Info tab shows a table of all genenames that appear in the experiment.
  
 Next to the table some links for databases where these genenames can be searched in are shown. The link to this GitHub page is placed there as well.
+
+
+## About the App
+
+Microarray data is often big and hard to interprete. Thats why it is necessary to preprocess and visualize the data. 
+This app should do both in a interactive way. 
+The data in this app are from Todd Golub. It is accessible via the bioconductor webpage. In the Golub experiment were 38 patients which were testet on their gene expression of 7129 genes. The 38 patients are either in one of the 2 groups: acute myeloid leukemia (AML) and acute lymphoblastic leukemia (ALL) that are both cancer deseases. Patient 1-27: ALL, Patient 28-38: AML.
+With the help of this app these 2 groups should be shown, so that later researchers can find out in which group other patients are.
+
+The problem of microarray data is that some data points have a negative value due to measuring errors.
+This app is preprocessing the data by deleting negative numbers in the expression data and it logarithmizes the data so that the differences of the values aren't too high. Else the visualization wouldn't be that good.
+
+The heatmap shows the logarithmized expression value of each patient for each of the genes with a different colored blue rectangle. The darker the blue of the rectangle the higher the value.
+At the left of the heatmap a dendrogram shows the connection of the patients. Patients that have closer values are closer together in the dendrogram.
+
+#### Interpretation
+
+With the visualization we will show that there are two groups of patients. So the dendrogram on the left of the heatmap should have two big branches.
+
+If we put the default values in the selection boxes and in the slider we can see that there are 3 branches. That means that there is a third group that havn't been seen in the phenotype. The patients 28-38 are in one branch in the heatmap their expression pattern is almost identical. 
+The other group splits up into two new groups with 6,3,23,10,11,9,14,2 and the other group with the rest of the patients.
+
+Where this other group comes from can't be found out. It might be caused by the treatment of the patients, but can also have a totally different reason.
 
 ---
 
