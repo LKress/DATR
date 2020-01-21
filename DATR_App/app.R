@@ -1,41 +1,85 @@
 # --- Load Golub Data ------
 
-library(yeastCC)
-x = exprs(yeastCC)
-y = x [,5:22]
-x = replace(y,is.na(y),0)
-#library(golubEsets)
-#data(Golub_Train)
-#x = exprs(Golub_Train)
+library(golubEsets)
+# collect the data
+data(Golub_Train)
+# get the expression data
+x = exprs(Golub_Train)
+# get the total number of genes for the data tab
 geneNr = dim(x)[1]
+# sort the genenames for the table on the more info tab
+genes = data.frame(sort(rownames(x)))
+colnames(genes) = "Gene"
+# get the patient number for the data tab
 patNr = dim(x)[2]
-#x = replace(x, x<1,1)
-#x = log2(x)
+# set all values to at least 1 to avoid NaNs
+xWithoutLT1 = replace(x, x<1,1)
+# logarithmize x 
+xLogarithmised = log2(xWithoutLT1)
+
+# it is possible to load other data but must be tested before use
+#library(yeastCC)
+#x = exprs(yeastCC)
+#y = x [,5:22]
+#x = replace(y,is.na(y),0)
 
 # ------------------------
 
+# RColorBrewer for better color of the heatmap
 library("RColorBrewer")
 library(shinydashboard)
+# DT for inserting a table in tab: More Info
+library(DT)
 
 # user interface object
 ui <- dashboardPage(
   dashboardHeader(title = "DATR"
   ),
   dashboardSidebar(
+    # initializing the sidebar values 
     sidebarMenu(
-      menuItem("DATR", tabName = "datr", icon = icon("fas fa-dna")),
+      # icons can be found at https://fontawesome.com/icons?d=gallery
+      menuItem("The Data", tabName = "data", icon = icon("fas fa-dna")),
       menuItem("Diagramme", tabName = "diagramme", icon = icon("fas fa-chart-pie")),
-      menuItem("See also", tabName = "seealso", icon = icon("fas fa-book"))
+      menuItem("More Info", tabName = "moreinfo", icon = icon("fas fa-book"))
       
     
     )
   ),
   dashboardBody(
+    # filling the tabs with content
     tabItems(
+      tabItem(tabName = "data",
+              fluidPage(
+                # printing number of all genes in the experiment
+                infoBox("Genes in dataset", geneNr, icon = icon("fas fa-list-ol"), fill = TRUE),
+                # printing number of all patients in the experiment
+                infoBox("Number of patients", patNr, icon = icon("fas fa-procedures"), fill = TRUE, color = "blue"),
+                fluidRow(
+                  column(12,
+                    box(
+                      h2("Where does the data come from?")
+                    )
+                  )
+                ),
+                fluidRow(
+                  column(12,
+                    box(
+                      p("Golub Esets are expression data from Todd Golubs leukemia data. The dataset can be downloaded via bioconductor.", style = "font-size: 15px"),
+                      a("Link to GolubEsets", href="http://bioconductor.org/packages/release/data/experiment/html/golubEsets.html"),
+                      h3("Abstract of the Experiment:"),
+                      # loading the abstract directly from the data so the text hasnt to be in the code and printing it in italic style
+                      em(abstract(Golub_Train), style = "font-size: 16px")
+                    )
+                  )
+                )
+              )
+      ),
       tabItem(tabName = "diagramme",
               sidebarLayout(
                 sidebarPanel(
                   helpText("All parameters can be adjusted here. The patient IDs are on the right side of the heatmap, the gene names are at the bottom."),
+                  # the user is changing the number of genes that should be shown in the heatmap
                   sliderInput(inputId = "numberOfGenes",
                               h3("Choose a number of Genes that should be shown"),
                               min = 2,
@@ -43,12 +87,14 @@ ui <- dashboardPage(
                               value = 50
                   ),
                   helpText(),
-                  selectInput(inputId = "distMas", 
+                  # the user is choosing a distance measure
+                  selectInput(inputId = "distMea", 
                               h3("Distance measure"), 
                               choices = list("Euclidean" = "euclidean", "Maximum" = "maximum",
                                              "Manhattan" = "manhattan", "Canberra" = "canberra",
                                              "Binary" = "binary",  "Minkowski" = "minkowski"), selected = "euclidean"
                   ),
+                  # the user is choosing the clustering method here
                   selectInput(inputId = "clustMeth", 
                               h3("Clustering method"), 
                               choices = list("Ward.D" = "ward.D", "Ward.D2" = "ward.D2",
@@ -65,41 +111,54 @@ ui <- dashboardPage(
                     status = "primary"
                   ),
                   box(
+                    # here the heatmap will be plotted
                     plotOutput("heatmap", height = 1000),
                     width = 12
                   )
                 )
               )
       ),
-      tabItem(tabName = "datr",
-              fluidPage(
-                infoBox("Genes in dataset", geneNr, icon = icon("fas fa-list-ol"), fill = TRUE),
-                infoBox("Number of patients", patNr, icon = icon("fas fa-procedures"), fill = TRUE, color = "blue"),
-                fluidRow(
-                  column(12,
-                    box(
-                      h2("Where does the data come from?")
-                    )
+      tabItem(tabName = "moreinfo",
+              fluidRow(
+                column( 6,
+                  box(width = 12,
+                    h2("All Genenames to look them up"),
+                    align = "center",
+                    status = "primary"
                   )
                 ),
-                fluidRow(
-                  column(12,
-                    box(
-                      p("Golub Esets are expression data from Todd Golubs leukemia data. The dataset can be downloaded via bioconductor.", style = "font-size: 15px"),
-                      h3("Abstract of the Experiment:"),
-                      em(abstract(Golub_Train), style = "font-size: 16px")
-                      #em("\"Although cancer classification has improved over the past 30 years, there has been no general approach for identifying new cancer classes (class discovery) or for assigning tumors to known classes (class prediction). Here, a generic approach to cancer classification based on gene expression monitoring by DNA microarrays is described and applied to human acute leukemias as a test case. A class discovery procedure automatically discovered the distinction between acute myeloid leukemia (AML) and acute lymphoblastic leukemia (ALL) without previous knowledge of these classes. An automatically derived class predictor was able to determine the class of new leukemia cases. The results demonstrate the feasibility of cancer classification based solely on gene expression monitoring and suggest a general strategy for discovering and predicting cancer classes for other types of cancer, independent of previous biological knowledge.\"", style = "font-size: 16px")
-                    ),
-                    box(
-                      p("Experiment data"),
-                      br(),
-                      p("Experimenter name: Golub TR et al")    
-                    )
-                  )
+                column(6,
+                      box(width = 12,
+                          h2("Some Links"),
+                          align = "center"
+                      )
                 )
+                
+              ),
+              fluidRow(
+                column( width = 6,
+                  # here all genes of the experiment are shown in a table for looking them up 
+                  # they are sortet alphabetically
+                  box( width = 12,
+                    DTOutput('geneTable')
+                  )
+                ),
+                column(6,
+                       # here are some links for the user for better understanding of the data and the genes
+                       box(width = 12,
+                         h4("Look up the gennames at:"),
+                         a("NCBI", href="https://www.ncbi.nlm.nih.gov/search/", target = "_blank"),
+                         p("    "),
+                         a("EBI", href="https://www.ebi.ac.uk/ebisearch/", target = "_blank"),
+                         p("    "),
+                         a("ENSEMBL", href="www.ensembl.org", target = "_blank"),
+                         p("    "),
+                         a("ENA", href="https://www.ebi.ac.uk/ena", target = "_blank"),
+                         
+                         h4("The code to this app:"),
+                         a("GitHub", href="https://github.com/LKress/DATR", target = "_blank"),
+                       ))
               )
-      ),
-      tabItem(tabName = "seealso"
       )
     )
   ),
@@ -108,12 +167,17 @@ ui <- dashboardPage(
 
 # server logic unit
 server <- function(input, output) {
+  # rendering the heatmap plot
   output$heatmap <- renderPlot({
-    x = x[names(sort(apply(x,1,var), decreasing=TRUE)[1:input$numberOfGenes]),]
-    tx = t(x)
-    heatmap(tx,distfun=function(c){dist(c,method=input$distMas)}, hclustfun=function(c){hclust(c,method=input$clustMeth)}, col= colorRampPalette(brewer.pal(8, "Blues"))(25))
-    #heatmap(tx, col= colorRampPalette(brewer.pal(8, "Blues"))(25), main = "Heatmap der Patienten und Genen")
+    # first the user chosen number of genes with the highest expression are selected
+    xHighestEX = xLogarithmised[names(sort(apply(xLogarithmised,1,var), decreasing=TRUE)[1:input$numberOfGenes]),]
+    # this matrix has now to be tranposed for better understanding of the heatmap
+    tx = t(xHighestEX)
+    # the heatmap is printet with the matrix the chosen dist and clust function and the blue color of RColorBrewer
+    heatmap(tx,distfun=function(c){dist(c,method=input$distMea)}, hclustfun=function(c){hclust(c,method=input$clustMeth)}, col= colorRampPalette(brewer.pal(8, "Blues"))(25))
   })
+  # here the table on the more info tab is rendered
+  output$geneTable <- renderDT(genes)
 }
 
 shinyApp(ui, server)
