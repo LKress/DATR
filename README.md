@@ -66,6 +66,7 @@ The output should look like this:
 
 You can now open the localhost adress in your browser and you will see the app.
 
+---
 
 ## The Data Tab
 
@@ -73,6 +74,8 @@ You can now open the localhost adress in your browser and you will see the app.
 
 On the start tab (data tab) you can find some information about the data that is visualized. The two infoboxes are showing the number of genes in the experiment and the number of patients that have been examined.
 The abstract of the experiment is shown on the data tab too.
+
+---
 
 ## The Diagram Tab
 
@@ -92,6 +95,7 @@ Further information about the distance measure can be found [here](https://www.r
 In the second selection box the clustering method can be chosen. This will also change the clustering method of the heatmap. Possible values are: Ward.D, Ward.D2, Single, Complete, Average (= UPGMA), Mcquitty (= WPGMA), Median (= WPGMC) and Centroid (= UPGMC).
 Further information about the clustering method can be found [here](https://www.rdocumentation.org/packages/stats/versions/3.6.2/topics/hclust).
 
+---
 
 ## The More Info Tab
 
@@ -100,6 +104,7 @@ The More Info tab shows a table of all genenames that appear in the experiment.
  
 Next to the table some links for databases where these genenames can be searched in are shown. The link to this GitHub page is placed there as well.
 
+---
 
 ## About the App
 
