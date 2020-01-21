@@ -19,7 +19,9 @@ The only problem here is that my computing time on the shinyapps.io server is li
 
 ##### 2. Downloading the source code and run the app on a local device
 This can be done by clicking on "Clone or download" and than on ["Download ZIP"](https://github.com/LKress/DATR/archive/master.zip).
+
 <img src="Images/download.png" alt="drawing" width="100%"/>
+
 After downloading the code, you should check if you have all packages installed that are needed to run the app.
 The packages are:
 
@@ -66,12 +68,14 @@ You can now open the localhost adress in your browser and you will see the app.
 
 
 ## The Data Tab
+
 <img src="Images/dataTab.png" alt="drawing" width="60%"/>
 
 On the start tab (data tab) you can find some information about the data that is visualized. The two infoboxes are showing the number of genes in the experiment and the number of patients that have been examined.
 The abstract of the experiment is shown on the data tab too.
 
 ## The Diagram Tab
+
 <img src="Images/diagramTab.png" alt="drawing" width="100%"/>
 
 On the diagram tab you can find one slider, two selection boxes and a heatmap. 
@@ -91,6 +95,7 @@ Further information about the clustering method can be found [here](https://www.
 
 
 ## The More Info Tab
+
 <img src="Images/moreinfoTab.png" alt="drawing" width="100%"/>
 The More Info tab shows a table of all genenames that appear in the experiment.
  
