@@ -1,10 +1,10 @@
 # DATR
 
-##This app will visualize Array Expression Datasets by using the [shiny framework](https://shiny.rstudio.com).
+## This app will visualize Array Expression Datasets by using the [shiny framework](https://shiny.rstudio.com).
 
 ---
 
-###Data mining with R [Test the App here!](https://kress.shinyapps.io/datr/)
+### Data mining with R [Test the App here!](https://kress.shinyapps.io/datr/)
 
 ---
 
