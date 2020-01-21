@@ -103,7 +103,7 @@ Next to the table some links for databases where these genenames can be searched
 
 ## About the App
 
-Microarray data is often big and hard to interprete. Thats why it is necessary to preprocess and visualize the data. 
+Microarray data are often large files that are hard to interprete. Thats why it is necessary to preprocess and visualize the data. 
 This app should do both in a interactive way. 
 The data in this app are from Todd Golub. It is accessible via the bioconductor webpage. In the Golub experiment were 38 patients which were testet on their gene expression of 7129 genes. The 38 patients are either in one of the 2 groups: acute myeloid leukemia (AML) and acute lymphoblastic leukemia (ALL) that are both cancer deseases. Patient 1-27: ALL, Patient 28-38: AML.
 With the help of this app these 2 groups should be shown, so that later researchers can find out in which group other patients are.
