@@ -1,6 +1,6 @@
 # DATR
 
-## This app will visualize Array Expression Datasets by using the [shiny framework](https://shiny.rstudio.com).
+### This app will visualize Array Expression Datasets by using the [shiny framework](https://shiny.rstudio.com).
 
 ---
 
