@@ -66,6 +66,8 @@ The output should look like this:
 
 You can now open the localhost adress in your browser and you will see the app.
 
+This installation method was tested for macOS (version 10.14.6). If it worked for you on a other system please inform me about it!
+
 ---
 
 ## The Data Tab
