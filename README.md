@@ -37,6 +37,8 @@ The packages are:
 
 [DT](https://www.rdocumentation.org/packages/DT/versions/0.11)
 
+(If you want to use other datasets they must be installed too)
+
 
 
 Run this code in your R console:
