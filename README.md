@@ -127,7 +127,7 @@ At the left of the heatmap a dendrogram shows the connection of the patients. Pa
 
 With the visualization we will show that there are two groups of patients. So the dendrogram on the left of the heatmap should have two big branches.
 
-If we put the default values in the selection boxes and in the slider we can see that there are 3 branches. That means that there is a third group that havn't been seen in the phenotype. The patients 28-38 are in one branch in the heatmap their expression pattern is almost identical. 
+If we put the default values in the selection boxes and in the slider we can see that there are 3 clusters. The clusters are determined by dividing on the layer where they have the largest distance to the next branch. That means that there is a third group that havn't been seen in the phenotype. The patients 28-38 are in one branch in the heatmap their expression pattern is almost identical. 
 The other group splits up into two new groups with 6,3,23,10,11,9,14,2 and the other group with the rest of the patients.
 
 Where this other group comes from can't be found out. It might be caused by the treatment of the patients, but can also have a totally different reason.
